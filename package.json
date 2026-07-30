@@ -1,0 +1,17 @@
+{
+  "name": "visual-ai-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Consent-based Chrome extension that visually monitors browser activity with Claude vision",
+  "workspaces": [
+    "extension",
+    "backend",
+    "dashboard"
+  ],
+  "scripts": {
+    "build:extension": "npm run build --workspace extension",
+    "dev:backend": "npm run dev --workspace backend",
+    "dev:dashboard": "npm run dev --workspace dashboard"
+  },
+  "license": "MIT"
+}
