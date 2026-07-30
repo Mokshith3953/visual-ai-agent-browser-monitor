@@ -19,19 +19,18 @@ export function registerCaptureRoutes(app: FastifyInstance) {
       if (!cap?.imageBase64) return reply.code(400).send({ error: 'missing_image' });
 
       const captureId = randomUUID();
-      let imagePath: string | null = null;
+      const imagePath = `${userId}/${captureId}.jpg`;
+      const textOnly = Boolean(cap.textOnly);
 
-      // In text-only (privacy) mode we still run vision, but never persist the raw image.
-      if (!cap.textOnly) {
-        const buffer = Buffer.from(cap.imageBase64, 'base64');
-        imagePath = `${userId}/${captureId}.jpg`;
-        const { error: upErr } = await supabase.storage
-          .from(config.supabaseBucket)
-          .upload(imagePath, buffer, { contentType: 'image/jpeg', upsert: false });
-        if (upErr) {
-          req.log.error({ upErr }, 'image upload failed');
-          return reply.code(500).send({ error: 'upload_failed' });
-        }
+      // Always upload so the async worker has an image to analyze. In text-only
+      // (privacy) mode the worker deletes it again right after deriving text.
+      const buffer = Buffer.from(cap.imageBase64, 'base64');
+      const { error: upErr } = await supabase.storage
+        .from(config.supabaseBucket)
+        .upload(imagePath, buffer, { contentType: 'image/jpeg', upsert: false });
+      if (upErr) {
+        req.log.error({ upErr }, 'image upload failed');
+        return reply.code(500).send({ error: 'upload_failed' });
       }
 
       const { error } = await supabase.from('captures').insert({
@@ -44,6 +43,7 @@ export function registerCaptureRoutes(app: FastifyInstance) {
         width: cap.width,
         height: cap.height,
         image_path: imagePath,
+        text_only: textOnly,
         status: 'pending',
         occurred_at: new Date(cap.ts).toISOString(),
       });

@@ -61,6 +61,8 @@ create table if not exists captures (
   height           integer,
   -- storage path in the `captures` bucket; null when text-only / after retention purge
   image_path       text,
+  -- when true, the worker deletes the raw image after deriving text (privacy mode)
+  text_only        boolean not null default false,
   status           capture_status not null default 'pending',
   -- Claude vision output
   app              text,

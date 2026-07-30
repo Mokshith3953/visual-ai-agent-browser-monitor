@@ -6,6 +6,7 @@ import { registerEventRoutes } from './routes/events.js';
 import { registerCaptureRoutes } from './routes/captures.js';
 import { registerActivityRoutes } from './routes/activity.js';
 import { registerDataRoutes } from './routes/data.js';
+import { startVisionWorker } from './vision/worker.js';
 
 const app = Fastify({
   logger: true,
@@ -27,7 +28,9 @@ registerDataRoutes(app);
 
 try {
   await app.listen({ port: config.port, host: '0.0.0.0' });
-  // The vision worker is wired in the next commit (vision layer).
+  // Run the vision worker in the same process for simplicity. In production,
+  // split it into its own process/container and scale independently.
+  startVisionWorker(app.log);
 } catch (err) {
   app.log.error(err);
   process.exit(1);
