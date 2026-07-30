@@ -10,8 +10,16 @@
   ],
   "scripts": {
     "build:extension": "npm run build --workspace extension",
+    "build:backend": "npm run build --workspace backend",
+    "build:dashboard": "npm run build --workspace dashboard",
     "dev:backend": "npm run dev --workspace backend",
-    "dev:dashboard": "npm run dev --workspace dashboard"
+    "dev:dashboard": "npm run dev --workspace dashboard",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "overrides": {
+    "postcss": "^8.5.25",
+    "sharp": "^0.35.3"
+  }
 }

@@ -6,7 +6,8 @@
   "description": "Manifest V3 extension — the capture surface",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run typecheck && vite build",
     "preview": "vite preview",
     "test": "vitest run --config vitest.config.ts"
   },
