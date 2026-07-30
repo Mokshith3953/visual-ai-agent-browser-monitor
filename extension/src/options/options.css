@@ -1,0 +1,30 @@
+:root {
+  --bg: #f8fafc; --card: #fff; --fg: #0f172a; --muted: #64748b;
+  --brand: #2563eb; --danger: #dc2626; --line: #e2e8f0;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.5 system-ui, Segoe UI, sans-serif; color: var(--fg); background: var(--bg); }
+main { max-width: 640px; margin: 0 auto; padding: 32px 20px 80px; }
+h1 { font-size: 22px; }
+section { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; margin: 18px 0; }
+h2 { font-size: 15px; margin: 0 0 12px; }
+label { display: block; margin: 12px 0; font-weight: 600; }
+label.checkbox { font-weight: 400; display: flex; gap: 8px; align-items: flex-start; }
+input[type="url"], input[type="password"], input[type="number"], textarea {
+  width: 100%; margin-top: 6px; padding: 9px 11px; font: inherit;
+  border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--fg);
+}
+input[type="checkbox"] { width: auto; margin-top: 4px; }
+textarea { font-family: ui-monospace, monospace; font-size: 13px; }
+.hint { color: var(--muted); font-size: 13px; margin: 0 0 8px; }
+code { background: var(--bg); padding: 1px 5px; border-radius: 4px; }
+button { font: inherit; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); cursor: pointer; }
+button.primary { background: var(--brand); color: #fff; border-color: var(--brand); }
+button.danger { color: var(--danger); border-color: #fecaca; }
+.danger-zone { border-color: #fecaca; }
+.danger-zone button { margin-right: 8px; }
+footer { position: sticky; bottom: 0; padding: 14px 0; display: flex; align-items: center; gap: 12px; }
+.saved { color: #16a34a; font-weight: 600; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0f172a; --card: #111c33; --fg: #e2e8f0; --line: #1e293b; }
+}

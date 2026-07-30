@@ -20,7 +20,16 @@ export default defineManifest({
   description:
     'Consent-based self-monitoring: captures your active tab and uses Claude vision to log what you do.',
   minimum_chrome_version: '116',
-  permissions: ['tabs', 'activeTab', 'scripting', 'storage', 'alarms', 'offscreen', 'idle'],
+  permissions: [
+    'tabs',
+    'activeTab',
+    'scripting',
+    'storage',
+    'alarms',
+    'offscreen',
+    'idle',
+    'downloads',
+  ],
   host_permissions: ['<all_urls>'],
   background: {
     service_worker: 'src/background/service-worker.ts',

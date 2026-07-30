@@ -178,7 +178,6 @@ async function captureNow() {
 // --------------------------------------------------------------- offscreen ---
 
 async function ensureOffscreen() {
-  // @ts-expect-error hasDocument exists at runtime (Chrome 116+)
   const has = await chrome.offscreen.hasDocument?.();
   if (has) return;
   await chrome.offscreen.createDocument({

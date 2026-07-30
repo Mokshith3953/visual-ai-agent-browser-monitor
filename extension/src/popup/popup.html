@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Visual AI Agent</title>
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
+    <header>
+      <span class="dot" id="statusDot"></span>
+      <h1>Visual AI Agent</h1>
+    </header>
+
+    <section id="consentView" hidden>
+      <p class="lead">
+        This tool captures your <strong>active tab</strong> on a timer and uses AI to log what
+        you're doing. It's for monitoring <strong>your own</strong> activity.
+      </p>
+      <ul class="promises">
+        <li>A red <strong>REC</strong> badge shows whenever it's recording.</li>
+        <li>Sensitive sites (banking, logins) are excluded by default.</li>
+        <li>Password fields are never read; you can pause or delete anytime.</li>
+      </ul>
+      <button id="grantBtn" class="primary">I understand — enable monitoring</button>
+    </section>
+
+    <section id="mainView" hidden>
+      <div class="row">
+        <span>Monitoring</span>
+        <label class="switch">
+          <input type="checkbox" id="monitorToggle" />
+          <span class="slider"></span>
+        </label>
+      </div>
+      <p class="status" id="statusText"></p>
+
+      <div class="stat">
+        <span id="captureCount">—</span>
+        <small>captures today</small>
+      </div>
+
+      <div class="actions">
+        <button id="optionsBtn">Settings</button>
+        <button id="exportBtn">Export my data</button>
+        <button id="deleteBtn" class="danger">Delete all</button>
+      </div>
+    </section>
+
+    <script type="module" src="./popup.ts"></script>
+  </body>
+</html>

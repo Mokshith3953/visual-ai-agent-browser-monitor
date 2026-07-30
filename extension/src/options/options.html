@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Visual AI Agent — Settings</title>
+    <link rel="stylesheet" href="./options.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Visual AI Agent — Settings</h1>
+
+      <section>
+        <h2>Connection</h2>
+        <label>Backend URL
+          <input type="url" id="backendUrl" placeholder="http://localhost:8787" />
+        </label>
+        <label>Auth token
+          <input type="password" id="authToken" placeholder="paste your per-user token" />
+        </label>
+      </section>
+
+      <section>
+        <h2>Capture</h2>
+        <label>Screenshot interval (seconds)
+          <input type="number" id="interval" min="5" max="600" />
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" id="textOnly" />
+          Privacy mode: store only AI-derived text, discard raw screenshots
+        </label>
+      </section>
+
+      <section>
+        <h2>Excluded domains</h2>
+        <p class="hint">One per line. These sites are never captured. Suffix match (e.g.
+          <code>chase.com</code> also blocks <code>secure.chase.com</code>).</p>
+        <textarea id="excluded" rows="8" spellcheck="false"></textarea>
+      </section>
+
+      <section class="danger-zone">
+        <h2>Your data</h2>
+        <button id="exportBtn">Export all my data</button>
+        <button id="deleteBtn" class="danger">Delete all my data</button>
+      </section>
+
+      <footer>
+        <button id="saveBtn" class="primary">Save settings</button>
+        <span id="saved" class="saved" hidden>Saved ✓</span>
+      </footer>
+    </main>
+    <script type="module" src="./options.ts"></script>
+  </body>
+</html>

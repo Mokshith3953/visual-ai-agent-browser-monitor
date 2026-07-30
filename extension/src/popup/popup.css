@@ -1,0 +1,66 @@
+:root {
+  --bg: #ffffff;
+  --fg: #0f172a;
+  --muted: #64748b;
+  --brand: #2563eb;
+  --danger: #dc2626;
+  --line: #e2e8f0;
+}
+* { box-sizing: border-box; }
+body {
+  width: 320px;
+  margin: 0;
+  font: 14px/1.4 system-ui, -apple-system, Segoe UI, sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+}
+header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+header h1 { font-size: 15px; margin: 0; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); }
+.dot.on { background: var(--danger); box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15); }
+section { padding: 14px; }
+.lead { margin: 0 0 10px; }
+.promises { margin: 0 0 14px; padding-left: 18px; color: var(--muted); font-size: 13px; }
+.promises li { margin-bottom: 4px; }
+.row { display: flex; align-items: center; justify-content: space-between; }
+.status { color: var(--muted); font-size: 13px; margin: 8px 0 14px; }
+.stat { text-align: center; margin: 4px 0 16px; }
+.stat span { font-size: 28px; font-weight: 700; display: block; }
+.stat small { color: var(--muted); }
+button {
+  font: inherit;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #f8fafc;
+  cursor: pointer;
+}
+button:hover { background: #f1f5f9; }
+button.primary { background: var(--brand); color: #fff; border-color: var(--brand); width: 100%; }
+button.danger { color: var(--danger); border-color: #fecaca; }
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.actions #optionsBtn { grid-column: 1 / -1; }
+.switch { position: relative; display: inline-block; width: 42px; height: 24px; }
+.switch input { display: none; }
+.slider {
+  position: absolute; inset: 0; border-radius: 999px;
+  background: #cbd5e1; transition: 0.2s;
+}
+.slider::before {
+  content: ''; position: absolute; height: 18px; width: 18px; left: 3px; top: 3px;
+  background: #fff; border-radius: 50%; transition: 0.2s;
+}
+.switch input:checked + .slider { background: var(--brand); }
+.switch input:checked + .slider::before { transform: translateX(18px); }
+
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0f172a; --fg: #e2e8f0; --line: #1e293b; }
+  button { background: #1e293b; }
+  button:hover { background: #263449; }
+}
