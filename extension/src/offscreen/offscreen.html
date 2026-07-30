@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Visual AI Agent — offscreen processor</title>
+  </head>
+  <body>
+    <!-- Invisible worker document: gives the service worker a DOM/canvas context
+         to downscale + compress screenshots. Never shown to the user. -->
+    <script type="module" src="./offscreen.ts"></script>
+  </body>
+</html>
