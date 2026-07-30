@@ -1,15 +1,8 @@
-import { createHash, randomBytes } from 'node:crypto';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { supabase } from '../db/supabase.js';
+import { hashToken } from './token.js';
 
-/** We store only the sha-256 of a token, never the token itself. */
-export function hashToken(token: string): string {
-  return createHash('sha256').update(token).digest('hex');
-}
-
-export function generateToken(): string {
-  return randomBytes(32).toString('base64url');
-}
+export { hashToken, generateToken } from './token.js';
 
 declare module 'fastify' {
   interface FastifyRequest {

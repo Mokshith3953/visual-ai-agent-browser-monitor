@@ -1,20 +1,9 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { config } from '../config.js';
 import type { VisionResult } from '../types.js';
+import { CATEGORIES, normalizeVisionInput } from './normalize.js';
 
 const client = new Anthropic({ apiKey: config.anthropicApiKey });
-
-const CATEGORIES = [
-  'work',
-  'communication',
-  'social',
-  'entertainment',
-  'shopping',
-  'learning',
-  'news',
-  'finance',
-  'other',
-] as const;
 
 /**
  * Structured output is forced via a single tool. Claude must call it, so we get
@@ -84,13 +73,5 @@ export async function analyzeScreenshot(
   );
   if (!toolUse) throw new Error('vision_no_tool_use');
 
-  const input = toolUse.input as Partial<VisionResult>;
-  return {
-    app: input.app ?? 'Unknown',
-    task: input.task ?? 'Unknown activity',
-    category: (input.category as VisionResult['category']) ?? 'other',
-    entities: Array.isArray(input.entities) ? input.entities.slice(0, 6) : [],
-    summary: input.summary ?? '',
-    containsSensitive: Boolean(input.containsSensitive),
-  };
+  return normalizeVisionInput(toolUse.input as Partial<VisionResult>);
 }
