@@ -50,7 +50,7 @@ document.addEventListener(
 document.addEventListener('focusout', () => (suppressKeys = false), { passive: true });
 
 document.addEventListener('visibilitychange', () => {
-  tickActive();
+  flush(); // send whatever was recorded before the tab goes out of view
   emit(document.visibilityState === 'visible' ? 'active' : 'idle');
 });
 
