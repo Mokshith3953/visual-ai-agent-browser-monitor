@@ -4,7 +4,7 @@
 
 - Node.js 20+
 - A Supabase project (free tier is fine)
-- An Anthropic API key
+- A Gemini API key (free tier — get one at https://aistudio.google.com/apikey)
 
 ## 1. Database (Supabase)
 
@@ -20,7 +20,7 @@ cd backend
 cp .env.example .env
 # Fill in:
 #   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
-#   ANTHROPIC_API_KEY
+#   GEMINI_API_KEY
 npm install
 npm run dev            # starts the API + vision worker on :8787
 ```
@@ -31,6 +31,12 @@ Register a user to get an auth token (returned exactly once):
 curl -X POST http://localhost:8787/v1/auth/register \
   -H 'content-type: application/json' -d '{"email":"me@example.com"}'
 # => { "userId": "...", "token": "..." }
+```
+
+On Windows PowerShell, `curl` is aliased to `Invoke-WebRequest` and doesn't accept `-H`/`-d`; use this instead:
+
+```powershell
+Invoke-RestMethod -Uri http://localhost:8787/v1/auth/register -Method Post -ContentType "application/json" -Body '{"email":"me@example.com"}'
 ```
 
 ## 3. Extension
@@ -63,7 +69,7 @@ Paste the same auth token to view your activity timeline.
 1. With monitoring on, browse a couple of normal sites for ~1 minute.
 2. `GET http://localhost:8787/v1/activity` with `Authorization: Bearer <token>` —
    you should see capture rows moving from `pending` to `processed` with `app`,
-   `task`, `category`, and `summary` populated by Claude.
+   `task`, `category`, and `summary` populated by Gemini.
 3. The dashboard shows the same, with screenshot thumbnails.
 
 ## Production hardening (not enabled by default)

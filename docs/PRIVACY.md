@@ -14,7 +14,7 @@ covertly surveilling others.
 | **Non-http never captured** — `chrome://`, extension pages, `file:`, and unparseable URLs are excluded. | `exclusion.ts` |
 | **Active tab only** — only the focused tab is ever screenshotted, never background tabs. | `service-worker.ts` `captureNow()` |
 | **No keystroke content** — the content script counts clicks/scrolls/keys but never reads values; key counting is suppressed entirely while a password field is focused. | `content-script.ts` |
-| **Model told not to transcribe secrets** — the vision prompt instructs Claude to flag `containsSensitive` and keep summaries generic instead of copying sensitive data. | `vision/claude.ts` |
+| **Model told not to transcribe secrets** — the vision prompt instructs Gemini to flag `containsSensitive` and keep summaries generic instead of copying sensitive data. | `vision/gemini.ts` |
 | **Privacy (text-only) mode** — raw screenshots are deleted right after the AI derives text; only the description is retained. | `worker.ts`, options toggle |
 | **Export & delete** — one click exports all stored data as JSON, or deletes everything (rows + stored images). | `routes/data.ts`, popup/options |
 | **Row-Level Security** — each user can only ever read/write their own rows. | `supabase/schema.sql` |
@@ -25,7 +25,7 @@ covertly surveilling others.
 - No covert/stealth mode, no hiding the recording indicator.
 - No capture of other users or other people's machines.
 - No third-party analytics or ad networks.
-- The Anthropic API key is never shipped to the client.
+- The Gemini API key is never shipped to the client.
 
 ## Operator responsibilities
 
