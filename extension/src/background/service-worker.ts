@@ -170,9 +170,17 @@ async function captureNow() {
   };
   try {
     await sendCapture(payload);
+    await incrementCaptureCount();
   } catch (err) {
     console.warn('sendCapture failed', err);
   }
+}
+
+async function incrementCaptureCount() {
+  const today = new Date().toISOString().slice(0, 10);
+  const { vaa_capture_count } = await chrome.storage.local.get('vaa_capture_count');
+  const count = vaa_capture_count?.date === today ? vaa_capture_count.count + 1 : 1;
+  await chrome.storage.local.set({ vaa_capture_count: { date: today, count } });
 }
 
 // --------------------------------------------------------------- offscreen ---
