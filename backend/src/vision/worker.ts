@@ -1,10 +1,10 @@
 import type { FastifyBaseLogger } from 'fastify';
 import { supabase } from '../db/supabase.js';
 import { config } from '../config.js';
-import { analyzeScreenshot } from './claude.js';
+import { analyzeScreenshot } from './gemini.js';
 
 /**
- * Async vision worker. Polls for `pending` captures, runs Claude vision, and
+ * Async vision worker. Polls for `pending` captures, runs Gemini vision, and
  * writes the structured result back. Kept in-process for simplicity; in
  * production run it as its own service and scale it independently of ingestion.
  */

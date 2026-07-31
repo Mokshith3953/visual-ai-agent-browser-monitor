@@ -13,9 +13,9 @@ export const CATEGORIES = [
 ] as const;
 
 /**
- * Normalizes raw (possibly malformed/partial) tool-call input from Claude into
- * a well-formed VisionResult. No network dependency, so it's unit-testable
- * against garbage model output without mocking the Anthropic client.
+ * Normalizes raw (possibly malformed/partial) JSON input from the vision model
+ * into a well-formed VisionResult. No network dependency, so it's unit-testable
+ * against garbage model output without mocking the Gemini client.
  */
 export function normalizeVisionInput(
   input: Partial<VisionResult> | null | undefined,

@@ -14,8 +14,8 @@ export const config = {
   supabaseServiceRoleKey: required('SUPABASE_SERVICE_ROLE_KEY'),
   supabaseBucket: process.env.SUPABASE_BUCKET ?? 'captures',
 
-  anthropicApiKey: required('ANTHROPIC_API_KEY'),
-  visionModel: process.env.VISION_MODEL ?? 'claude-opus-4-8',
+  geminiApiKey: required('GEMINI_API_KEY'),
+  visionModel: process.env.VISION_MODEL ?? 'gemini-flash-latest',
 
   workerPollMs: Number(process.env.WORKER_POLL_MS ?? 3000),
   workerBatch: Number(process.env.WORKER_BATCH ?? 4),
