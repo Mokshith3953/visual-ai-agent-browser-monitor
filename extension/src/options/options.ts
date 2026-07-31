@@ -1,5 +1,6 @@
 import { getSettings, updateSettings } from '../lib/settings';
 import { requestDelete, requestExport } from '../lib/api';
+import { MAX_CAPTURE_INTERVAL_SEC, MIN_CAPTURE_INTERVAL_SEC } from '../lib/config';
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 
@@ -23,7 +24,10 @@ $('saveBtn').addEventListener('click', async () => {
   await updateSettings({
     backendUrl: backendUrl.value.trim() || 'http://localhost:8787',
     authToken: authToken.value.trim() || null,
-    captureIntervalSec: Math.min(600, Math.max(5, Number(interval.value) || 20)),
+    captureIntervalSec: Math.min(
+      MAX_CAPTURE_INTERVAL_SEC,
+      Math.max(MIN_CAPTURE_INTERVAL_SEC, Number(interval.value) || MIN_CAPTURE_INTERVAL_SEC),
+    ),
     textOnly: textOnly.checked,
     excludedDomains: excluded.value
       .split('\n')

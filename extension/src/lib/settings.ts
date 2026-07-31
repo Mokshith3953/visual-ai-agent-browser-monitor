@@ -1,10 +1,24 @@
-import { DEFAULT_SETTINGS, STORAGE_KEY } from './config';
+import { DEFAULT_SETTINGS, MAX_CAPTURE_INTERVAL_SEC, MIN_CAPTURE_INTERVAL_SEC, STORAGE_KEY } from './config';
 import type { Settings } from './types';
+
+/**
+ * Clamps captureIntervalSec so every reader sees the same, honest value —
+ * including settings saved before MIN_CAPTURE_INTERVAL_SEC existed.
+ */
+function normalize(s: Settings): Settings {
+  return {
+    ...s,
+    captureIntervalSec: Math.min(
+      MAX_CAPTURE_INTERVAL_SEC,
+      Math.max(MIN_CAPTURE_INTERVAL_SEC, s.captureIntervalSec),
+    ),
+  };
+}
 
 /** Read settings from chrome.storage.local, merged over defaults. */
 export async function getSettings(): Promise<Settings> {
   const stored = await chrome.storage.local.get(STORAGE_KEY);
-  return { ...DEFAULT_SETTINGS, ...(stored[STORAGE_KEY] ?? {}) };
+  return normalize({ ...DEFAULT_SETTINGS, ...(stored[STORAGE_KEY] ?? {}) });
 }
 
 /** Persist a partial settings patch and return the merged result. */
@@ -28,7 +42,7 @@ export function onSettingsChanged(cb: (s: Settings) => void): () => void {
     area: string,
   ) => {
     if (area === 'local' && changes[STORAGE_KEY]) {
-      cb({ ...DEFAULT_SETTINGS, ...(changes[STORAGE_KEY].newValue ?? {}) });
+      cb(normalize({ ...DEFAULT_SETTINGS, ...(changes[STORAGE_KEY].newValue ?? {}) }));
     }
   };
   chrome.storage.onChanged.addListener(listener);

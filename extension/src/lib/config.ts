@@ -18,10 +18,19 @@ export const DEFAULT_EXCLUDED_DOMAINS = [
   'lastpass.com',
 ];
 
+/**
+ * chrome.alarms enforces its own minimum period regardless of what we ask for:
+ * 1 minute for packed/published extensions, ~30s for unpacked (dev mode). We floor
+ * user input to 30s so the value shown in Settings/popup always matches what the
+ * alarm actually does, instead of silently clamping underneath and lying about it.
+ */
+export const MIN_CAPTURE_INTERVAL_SEC = 30;
+export const MAX_CAPTURE_INTERVAL_SEC = 600;
+
 export const DEFAULT_SETTINGS: Settings = {
   consentGrantedAt: null,
   monitoring: false, // OFF until the user opts in
-  captureIntervalSec: 20,
+  captureIntervalSec: MIN_CAPTURE_INTERVAL_SEC,
   excludedDomains: [...DEFAULT_EXCLUDED_DOMAINS],
   textOnly: false,
   backendUrl: 'http://localhost:8787',

@@ -23,8 +23,10 @@
       <section>
         <h2>Capture</h2>
         <label>Screenshot interval (seconds)
-          <input type="number" id="interval" min="5" max="600" />
+          <input type="number" id="interval" min="30" max="600" />
         </label>
+        <p class="hint">Minimum 30s — Chrome's alarm API won't reliably fire more often
+          than that, even in dev mode.</p>
         <label class="checkbox">
           <input type="checkbox" id="textOnly" />
           Privacy mode: store only AI-derived text, discard raw screenshots

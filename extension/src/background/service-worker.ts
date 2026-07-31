@@ -38,9 +38,8 @@ async function reconcileAlarms() {
   await chrome.alarms.clear(ALARM_CAPTURE);
   await chrome.alarms.clear(ALARM_FLUSH);
   if (s.consentGrantedAt && s.monitoring) {
-    chrome.alarms.create(ALARM_CAPTURE, {
-      periodInMinutes: Math.max(0.25, s.captureIntervalSec / 60),
-    });
+    // getSettings() already clamps captureIntervalSec to MIN_CAPTURE_INTERVAL_SEC.
+    chrome.alarms.create(ALARM_CAPTURE, { periodInMinutes: s.captureIntervalSec / 60 });
     chrome.alarms.create(ALARM_FLUSH, { periodInMinutes: 0.5 });
   }
 }
